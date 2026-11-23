@@ -2,6 +2,11 @@
 
 When should a player stop rolling to maximise their chance of winning the game? This group project studies Mexico with two to eight players. We use dynamic programming to compute optimal play and Monte Carlo simulations to compare different strategies.
 
+## Report and presentation
+
+- [Written report](Mexico_Game_Report.pdf)
+- [Presentation slides](Mexico_Game_Presentation.pdf)
+
 ## Game rules
 
 Each roll uses two fair six-sided dice. The larger die gives the tens digit, so a 2 and a 5 score 52. Scores are ranked numerically. The first player may roll up to three times, and the number of rolls they use sets the limit for everyone else in that round. Each reroll replaces the previous score.
@@ -45,7 +50,7 @@ Run the other plotting scripts from `analysis/` as well. They write new PNGs to 
 | `plot_optimal_win_probabilities.R` | First-player advantage for 2–8 players and win probabilities by starting position in a five-player game |
 | `plot_fixed_k_wcwr.R` | Worst-case win rate for each candidate K and player count |
 | `plot_dice_distributions.R` | Cumulative distributions of the best score across one, two or three rolls |
-| `plot_playable_strategy.R` | Win rates by switch point and a comparison of the selected Playable strategy with three alternatives |
+| `plot_playable_strategy.R` | Win rate of the Playable strategy by switch point in eight-player games |
 | `plot_four_strategy_win_rates.R` | Win rates for Random, Conservative, Aggressive and Optimal in eight-player games with two players per strategy |
 | `plot_head_to_head.R` | Pairwise win-rate matrix for all six strategies |
 | `plot_dice_and_reroll_advantage.R` | First-player advantage as the number of dice or permitted rerolls changes |
@@ -60,7 +65,6 @@ Run the other plotting scripts from `analysis/` as well. They write new PNGs to 
 | `results/wcwr/` | Fixed-K worst-case win rates for each player count and a summary of the best thresholds |
 | `results/optimal_winning_strategy/` | Full state-by-state strategy tables for 2–7 players |
 | `results/threshold/` | Compact stopping-threshold tables for 2–8 players |
-| `docs/` | Reserved for the final report and presentation slides |
 
 The full eight-player table, `optimal_winning_strategy_n8.parquet`, is omitted because it is over 100 MB. Its compact counterpart, `threshold_n8.parquet`, is included. The head-to-head and four-strategy simulations can therefore run directly with the supplied files.
 
