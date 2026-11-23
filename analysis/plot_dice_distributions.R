@@ -9,7 +9,7 @@ roll_dice <- function(n) {
 }
 
 
-simulate_best <- function(n_rolls, simulations = 100000) {
+simulate_best <- function(n_rolls, simulations = 10000) {
   results <- replicate(simulations, {max(roll_dice(n_rolls))})
   data.frame(score = results)
 }

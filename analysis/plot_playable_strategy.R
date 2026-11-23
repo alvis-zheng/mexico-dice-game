@@ -158,43 +158,21 @@ playable_comparison <- simulation_results[
 
 print(playable_comparison)
 
-# Use the same winning probability scale in both panels.
-playable_win_rates <- simulation_results[
-  strategy == playable_level
-]
+# Figure 5: playable strategy win probability by switch point.
+switch_counts <- sub("^Playable_r", "", playable_comparison$Level)
+win_percent <- playable_comparison$Win_Percentage
 
-plot_data <- simulation_results[
-  playable_level == "Playable_r2"
-]
-
-y_lim <- range(pretty(c(0, 100 * playable_win_rates$win_rate,
-                       100 * plot_data$win_rate)))
-
-# Figure 5(a): winning probability by switch point.
 png("playable_win_rate_by_switch.png", width = 6.5, height = 4,
-    units = "in", res = 300, pointsize = 15)
-par(mar = c(3.7, 4.2, 0.5, 0.4), mgp = c(2.5, 0.65, 0), cex.lab = 1.15, cex.axis = 1.1)
-
-barplot(
-  100 * playable_win_rates$win_rate,
-  names.arg = sub("^Playable_r", "", playable_win_rates$playable_level),
-  xlab = "Players remaining at switch",
-  ylab = "Win probability (%)",
-  ylim = y_lim, las = 1, col = "dodgerblue", border = NA
+    units = "in", res = 300, pointsize = 12)
+par(mar = c(4.2, 4.8, 0.8, 0.5), mgp = c(2.7, 0.7, 0))
+upper_limit <- max(60, 10 * ceiling((max(win_percent) + 3) / 10))
+ticks <- seq(0, upper_limit, by = 10)
+centres <- barplot(
+  win_percent, names.arg = switch_counts, axes = FALSE,
+  xlab = "Players remaining at switch", ylab = "Winning probability",
+  ylim = c(0, upper_limit), yaxs = "i", col = "dodgerblue", border = NA
 )
-invisible(dev.off())
-
-# Figure 5(b): strategy comparison for Playable_r2.
-png("playable_strategy_comparison.png", width = 6.5, height = 4,
-    units = "in", res = 300, pointsize = 15)
-par(mar = c(3.7, 4.2, 0.5, 0.4), mgp = c(2.5, 0.65, 0), cex.lab = 1.15, cex.axis = 1.1)
-
-barplot(
-  100 * plot_data$win_rate,
-  names.arg = c("Rand", "Cons", "Aggr", "Play"),
-  cex.names = 1.1,
-  xlab = "Strategy (switch at 2 players)",
-  ylab = "Win probability (%)",
-  ylim = y_lim, las = 1, col = "dodgerblue", border = NA
-)
+axis(2, at = ticks, labels = paste0(ticks, "%"), las = 1)
+text(centres, win_percent, labels = sprintf("%.2f%%", win_percent),
+     pos = 3, offset = 0.35, cex = 0.85)
 invisible(dev.off())

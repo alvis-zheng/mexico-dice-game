@@ -94,12 +94,12 @@ p1 <- ggplot(
   geom_line(linewidth = 0.6) +
   geom_point(size = 1.8) +
   scale_x_continuous(breaks = 2:5) +
-  scale_y_continuous(limits = range(y_breaks), breaks = y_breaks) +
+  scale_y_continuous(limits = range(y_breaks), breaks = y_breaks, labels = function(x) paste0(x, "%")) +
   scale_colour_manual(values = variant_colours) +
   scale_linetype_manual(values = variant_lines) +
   labs(
     x = "Number of players",
-    y = "Advantage (percentage points)",
+    y = "Advantage",
     colour = "Number of dice",
     linetype = "Number of dice"
   ) +
@@ -118,12 +118,12 @@ p2 <- ggplot(
   geom_line(linewidth = 0.6) +
   geom_point(size = 1.8) +
   scale_x_continuous(breaks = 2:5) +
-  scale_y_continuous(limits = range(y_breaks), breaks = y_breaks) +
+  scale_y_continuous(limits = range(y_breaks), breaks = y_breaks, labels = function(x) paste0(x, "%")) +
   scale_colour_manual(values = variant_colours) +
   scale_linetype_manual(values = variant_lines) +
   labs(
     x = "Number of players",
-    y = "Advantage (percentage points)",
+    y = "Advantage",
     colour = "Maximum rerolls",
     linetype = "Maximum rerolls"
   ) +

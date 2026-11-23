@@ -130,10 +130,12 @@ plot_matchups <- function(rates) {
   breaks <- seq(0, 1, length.out = length(colours) + 1)
   midpoints <- (seq_along(colours) - 0.5) / length(colours)
 
-  png("head_to_head_matrix.png", width = 1950, height = 1350, res = 150)
-  layout(matrix(c(1, 2), nrow = 1), widths = c(8, 1.5))
+  legend_height <- 120
+  png("head_to_head_matrix.png", width = 1950, height = 1350 + legend_height, res = 150)
+  layout(rbind(c(1, 2), c(3, 3)), widths = c(8, 1.5),
+         heights = c(1350, legend_height))
 
-  par(mar = c(7, 12, 1.5, 0.6))
+  par(cex = 1, mex = 1, mar = c(7, 12, 1.5, 0.6))
   image(pos, pos, t(rates), col = colours, breaks = breaks,
         axes = FALSE, xlab = "", ylab = "")
   axis(1, at = pos, labels = strategy_labels[colnames(rates)], tick = FALSE, cex.axis = 1.5)
@@ -158,6 +160,20 @@ plot_matchups <- function(rates) {
   ticks <- seq(0, 1, by = 0.25)
   axis(4, at = ticks, labels = paste0(100 * ticks, "%"), las = 1, cex.axis = 1.6)
   mtext("Winning probability", side = 4, line = 5.8, cex = 1.7)
+
+  par(mar = rep(0, 4))
+  plot.new()
+  plot.window(xlim = c(0, 1), ylim = c(0, 1), xaxs = "i", yaxs = "i")
+ 
+    legend_x <- c(0.15, 0.41, 0.68)
+
+  text(legend_x, rep(0.8, 3),
+     labels = c("Play - Playable strategy", "DP - Optimal strategy", "Rand - Random"),
+     adj = c(0, 0.5), cex = 1.5)
+
+  text(legend_x, rep(0.35, 3),
+     labels = c("Cons - Conservative", "K - K-threshold", "Aggr - Aggressive"),
+     adj = c(0, 0.5), cex = 1.5)
   dev.off()
 }
 
